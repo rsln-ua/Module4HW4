@@ -1,16 +1,16 @@
 namespace Module4HW4.Data.Entities;
 
-public class Order
+public class OrderEntity
 {
     public int Id { get; set; }
     public int CustomerId { get; set; }
-    public Customer Customer { get; set; } = null!;
+    public CustomerEntity CustomerEntity { get; set; } = null!;
     public int PaymentId { get; set; }
-    public Payment Payment { get; set; } = null!;
+    public PaymentEntity PaymentEntity { get; set; } = null!;
     public int ShipperId { get; set; }
-    public Shipper Shipper { get; set; } = null!;
+    public ShipperEntity ShipperEntity { get; set; } = null!;
     public int? OrderNumber { get; set; }
     public DateTime? OrderDate { get; set; }
     public DateTime? ShipDate { get; set; }
-    public List<OrderDetails> OrderDetails { get; set; } = null!;
+    public List<OrderDetailsEntity> OrderDetails { get; set; } = null!;
 }

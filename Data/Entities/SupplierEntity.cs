@@ -1,6 +1,6 @@
 namespace Module4HW4.Data.Entities;
 
-public class Supplier
+public class SupplierEntity
 {
     public int Id { get; set; }
     public int CustomerId { get; set; }
@@ -9,5 +9,5 @@ public class Supplier
     public string ContactLName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Phone { get; set; } = null!;
-    public List<Product> Products { get; set; } = null!;
+    public List<ProductEntity> Products { get; set; } = null!;
 }

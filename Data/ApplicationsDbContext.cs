@@ -11,14 +11,14 @@ public class ApplicationsDbContext : DbContext
     {
     }
 
-    public DbSet<Customer> Customers { get; set; } = null!;
-    public DbSet<Order> Orders { get; set; } = null!;
-    public DbSet<Payment> Payments { get; set; } = null!;
-    public DbSet<OrderDetails> OrderDetails { get; set; } = null!;
-    public DbSet<Shipper> Shippers { get; set; } = null!;
-    public DbSet<Category> Categories { get; set; } = null!;
-    public DbSet<Product> Products { get; set; } = null!;
-    public DbSet<Supplier> Suppliers { get; set; } = null!;
+    public DbSet<CustomerEntity> Customers { get; set; } = null!;
+    public DbSet<OrderEntity> Orders { get; set; } = null!;
+    public DbSet<PaymentEntity> Payments { get; set; } = null!;
+    public DbSet<OrderDetailsEntity> OrderDetails { get; set; } = null!;
+    public DbSet<ShipperEntity> Shippers { get; set; } = null!;
+    public DbSet<CategoryEntity> Categories { get; set; } = null!;
+    public DbSet<ProductEntity> Products { get; set; } = null!;
+    public DbSet<SupplierEntity> Suppliers { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

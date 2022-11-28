@@ -4,14 +4,14 @@ using Module4HW4.Data.Entities;
 
 namespace Module4HW4.Data.Configurations;
 
-public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+public class CategoryConfiguration : IEntityTypeConfiguration<CategoryEntity>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<CategoryEntity> builder)
     {
         builder.Property(el => el.Name).IsRequired();
         builder.Property(el => el.Description).IsRequired();
         builder.Property(el => el.Active).HasDefaultValue(true);
-        builder.HasMany(el => el.Products).WithOne(el => el.Category)
+        builder.HasMany(el => el.Products).WithOne(el => el.CategoryEntity)
             .HasForeignKey(el => el.CategoryId).IsRequired();
     }
 }

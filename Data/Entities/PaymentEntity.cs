@@ -1,9 +1,9 @@
 namespace Module4HW4.Data.Entities;
 
-public class Payment
+public class PaymentEntity
 {
     public int Id { get; set; }
     public string Type { get; set; } = null!;
     public bool Allowed { get; set; }
-    public List<Order> Orders { get; set; } = null!;
+    public List<OrderEntity> Orders { get; set; } = null!;
 }
