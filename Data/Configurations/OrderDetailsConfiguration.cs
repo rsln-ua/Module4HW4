@@ -16,5 +16,6 @@ public class OrderDetailsConfiguration : IEntityTypeConfiguration<OrderDetailsEn
         builder.Property(el => el.OrderId).IsRequired();
         builder.HasOne(el => el.OrderEntity).WithMany(el => el.OrderDetails)
             .HasForeignKey(el => el.OrderId).IsRequired();
+        builder.Property(el => el.Quantity).HasDefaultValue(1);
     }
 }

@@ -7,6 +7,7 @@ public class OrderDetailsEntity
     public ProductEntity ProductEntity { get; set; } = null!;
     public int OrderId { get; set; }
     public OrderEntity OrderEntity { get; set; } = null!;
+    public int Quantity { get; set; }
     public decimal Price { get; set; }
     public decimal Discount { get; set; }
 }

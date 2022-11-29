@@ -7,5 +7,5 @@ public interface IPaymentRepository
     Task<bool> DeletePaymentByIdAsync(int id);
     Task<bool> UpdatePaymentAsync(Payment item);
     Task<Payment> GetPaymentByIdAsync(int id);
-    Task<int> AddPaymentAsync(string type, bool allowed);
+    Task<int> AddPaymentAsync(string? type = null, bool? allowed = null);
 }

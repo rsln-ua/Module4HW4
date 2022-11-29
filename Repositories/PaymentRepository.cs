@@ -14,9 +14,15 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
     {
     }
 
-    public async Task<int> AddPaymentAsync(string type, bool allowed)
+    public async Task<int> AddPaymentAsync(string? type = null, bool? allowed = null)
     {
-        var entity = new PaymentEntity() { Type = type, Allowed = allowed };
+        var entity = new PaymentEntity() { Type = type! };
+
+        if (allowed != null)
+        {
+            entity.Allowed = allowed.GetValueOrDefault();
+        }
+
         DbContext.Payments.Add(entity);
         await DbContext.SaveChangesAsync();
 

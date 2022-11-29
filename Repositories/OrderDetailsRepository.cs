@@ -14,10 +14,16 @@ public class OrderDetailsRepository : BaseRepository, IOrderDetailsRepository
     {
     }
 
-    public async Task<int> AddOrderDetailsAsync(decimal price, decimal discount, int orderId, int productId)
+    public async Task<int> AddOrderDetailsAsync(decimal price, int orderId, int productId, decimal? discount = null)
     {
         var entity = new OrderDetailsEntity()
-            { Price = price, Discount = discount, OrderId = orderId, ProductId = productId };
+            { Price = price, OrderId = orderId, ProductId = productId };
+
+        if (discount != null)
+        {
+            entity.Discount = discount.GetValueOrDefault();
+        }
+
         DbContext.OrderDetails.Add(entity);
         await DbContext.SaveChangesAsync();
 

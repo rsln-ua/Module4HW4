@@ -14,12 +14,12 @@ public class OrderRepository : BaseRepository, IOrderRepository
     {
     }
 
-    public async Task<int> AddOrderAsync(int customerId, int paymentId, int shipperId, int? orderNumber, DateTime? orderDate, DateTime? shipDate)
+    public async Task<int> AddOrderAsync(int customerId, int paymentId, int shipperId, DateTime? orderDate, DateTime? shipDate = null)
     {
         var entity = new OrderEntity()
         {
             CustomerId = customerId, PaymentId = paymentId, ShipperId = shipperId,
-            OrderDate = orderDate, OrderNumber = orderNumber, ShipDate = shipDate
+            OrderDate = orderDate, ShipDate = shipDate
         };
         DbContext.Orders.Add(entity);
         await DbContext.SaveChangesAsync();

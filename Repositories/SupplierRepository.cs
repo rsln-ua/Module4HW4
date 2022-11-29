@@ -1,3 +1,4 @@
+using System.Xml;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Module4HW4.Data;
@@ -14,13 +15,14 @@ public class SupplierRepository : BaseRepository, ISupplierRepository
     {
     }
 
-    public async Task<int> AddSupplierAsync(string companyName, string contactFName, string contactLName, string email, string phone, int customerId)
+    public async Task<int> AddSupplierAsync(string companyName, string contactFName, string contactLName, int customerId, string? phone = null)
     {
         var entity = new SupplierEntity()
         {
             CompanyName = companyName, ContactFName = contactFName, ContactLName = contactLName,
-            Email = email, CustomerId = customerId, Phone = phone
+            CustomerId = customerId, Phone = phone
         };
+
         DbContext.Suppliers.Add(entity);
         await DbContext.SaveChangesAsync();
 

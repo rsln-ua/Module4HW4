@@ -17,5 +17,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
         builder.Property(el => el.ShipperId).IsRequired();
         builder.HasOne(el => el.ShipperEntity).WithMany(el => el.Orders)
             .HasForeignKey(el => el.ShipperId).IsRequired();
+        builder.Property(el => el.OrderNumber).ValueGeneratedOnAdd();
     }
 }

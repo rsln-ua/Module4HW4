@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Module4HW4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221128005102_InitialCreate")]
+    [Migration("20221129100457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,15 +22,18 @@ namespace Module4HW4.Migrations
                 .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseHiLo(modelBuilder, "EntityFrameworkHiLoSequence");
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Category", b =>
+            modelBuilder.HasSequence("EntityFrameworkHiLoSequence")
+                .IncrementsBy(10);
+
+            modelBuilder.Entity("Module4HW4.Data.Entities.CategoryEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .ValueGeneratedOnAdd()
@@ -53,13 +56,13 @@ namespace Module4HW4.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Customer", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.CustomerEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -80,13 +83,49 @@ namespace Module4HW4.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Order", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.OrderDetailsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Discount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("numeric")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Module4HW4.Data.Entities.OrderEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
@@ -95,7 +134,10 @@ namespace Module4HW4.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("OrderNumber")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int?>("OrderNumber"));
 
                     b.Property<int>("PaymentId")
                         .HasColumnType("integer");
@@ -117,44 +159,13 @@ namespace Module4HW4.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.OrderDetails", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.PaymentEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Discount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("numeric")
-                        .HasDefaultValue(0m);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Module4HW4.Data.Entities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<bool>("Allowed")
                         .HasColumnType("boolean");
@@ -168,13 +179,13 @@ namespace Module4HW4.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Product", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
@@ -207,13 +218,13 @@ namespace Module4HW4.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Shipper", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.ShipperEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -228,13 +239,13 @@ namespace Module4HW4.Migrations
                     b.ToTable("Shippers");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Supplier", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.SupplierEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -252,11 +263,9 @@ namespace Module4HW4.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -264,102 +273,102 @@ namespace Module4HW4.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Order", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.OrderDetailsEntity", b =>
                 {
-                    b.HasOne("Module4HW4.Data.Entities.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Module4HW4.Data.Entities.Payment", "Payment")
-                        .WithMany("Orders")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Module4HW4.Data.Entities.Shipper", "Shipper")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShipperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Payment");
-
-                    b.Navigation("Shipper");
-                });
-
-            modelBuilder.Entity("Module4HW4.Data.Entities.OrderDetails", b =>
-                {
-                    b.HasOne("Module4HW4.Data.Entities.Order", "Order")
+                    b.HasOne("Module4HW4.Data.Entities.OrderEntity", "OrderEntity")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.Product", "Product")
+                    b.HasOne("Module4HW4.Data.Entities.ProductEntity", "ProductEntity")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("OrderEntity");
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductEntity");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Product", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.OrderEntity", b =>
                 {
-                    b.HasOne("Module4HW4.Data.Entities.Category", "Category")
+                    b.HasOne("Module4HW4.Data.Entities.CustomerEntity", "CustomerEntity")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Module4HW4.Data.Entities.PaymentEntity", "PaymentEntity")
+                        .WithMany("Orders")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Module4HW4.Data.Entities.ShipperEntity", "ShipperEntity")
+                        .WithMany("Orders")
+                        .HasForeignKey("ShipperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerEntity");
+
+                    b.Navigation("PaymentEntity");
+
+                    b.Navigation("ShipperEntity");
+                });
+
+            modelBuilder.Entity("Module4HW4.Data.Entities.ProductEntity", b =>
+                {
+                    b.HasOne("Module4HW4.Data.Entities.CategoryEntity", "CategoryEntity")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.Supplier", "Supplier")
+                    b.HasOne("Module4HW4.Data.Entities.SupplierEntity", "SupplierEntity")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("CategoryEntity");
 
-                    b.Navigation("Supplier");
+                    b.Navigation("SupplierEntity");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Category", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.CategoryEntity", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Customer", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.CustomerEntity", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Order", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.OrderEntity", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Payment", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.PaymentEntity", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Product", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.ProductEntity", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Shipper", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.ShipperEntity", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Module4HW4.Data.Entities.Supplier", b =>
+            modelBuilder.Entity("Module4HW4.Data.Entities.SupplierEntity", b =>
                 {
                     b.Navigation("Products");
                 });

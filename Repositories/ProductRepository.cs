@@ -17,7 +17,7 @@ public class ProductRepository : BaseRepository, IProductRepository
     public async Task<int> AddProductAsync(string name, string description, decimal unitPrice, decimal discount, int categoryId, int supplierId)
     {
         var entity = new ProductEntity()
-        { Name = name, Description = description, UnitPrice = unitPrice, Discount = discount, CategoryId = categoryId, SupplierId = supplierId };
+            { Name = name, Description = description, UnitPrice = unitPrice, Discount = discount, CategoryId = categoryId, SupplierId = supplierId };
         DbContext.Products.Add(entity);
         await DbContext.SaveChangesAsync();
 
