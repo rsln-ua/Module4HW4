@@ -4,9 +4,9 @@ using Module4HW4.Data.Entities;
 
 namespace Module4HW4.Data;
 
-public class ApplicationsDbContext : DbContext
+public class ApplicationDbContext : DbContext
 {
-    public ApplicationsDbContext(DbContextOptions options)
+    public ApplicationDbContext(DbContextOptions options)
         : base(options)
     {
     }

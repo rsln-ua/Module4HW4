@@ -4,17 +4,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace Module4HW4.Data;
 
-public class ApplicationsDbContextFactory : IDesignTimeDbContextFactory<ApplicationsDbContext>
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    public ApplicationsDbContext CreateDbContext(string[] args)
+    public ApplicationDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationsDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
         var connectionString = new ConfigurationBuilder().AddJsonFile("config.json").Build()
             .GetConnectionString("DefaultConnection");
         optionsBuilder.UseNpgsql(
             connectionString,
             opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
 
-        return new ApplicationsDbContext(optionsBuilder.Options);
+        return new ApplicationDbContext(optionsBuilder.Options);
     }
 }
