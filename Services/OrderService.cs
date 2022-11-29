@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Module4HW4.Data;
 using Module4HW4.Models;
 using Module4HW4.Repositories.Abstractions;
@@ -11,18 +12,21 @@ public class OrderService : IOrderService
     private ApplicationDbContext _dbContext;
     private IOrderRepository _orderRepository;
     private IOrderDetailsService _orderDetailsService;
+    private ILogger<OrderService> _loggerService;
 
-    public OrderService(IOrderRepository orderRepository, ApplicationDbContext dbContext, IOrderDetailsService orderDetailsService)
+    public OrderService(IOrderRepository orderRepository, ApplicationDbContext dbContext, IOrderDetailsService orderDetailsService, ILogger<OrderService> loggerService)
     {
         _orderRepository = orderRepository;
         _dbContext = dbContext;
         _orderDetailsService = orderDetailsService;
+        _loggerService = loggerService;
     }
 
     public async Task<int> CreateOrder(int customerId, int paymentId, int shipperId)
     {
         var timestamp = DateTime.UtcNow;
         var id = await _orderRepository.AddOrderAsync(customerId, paymentId, shipperId, timestamp);
+        _loggerService.LogInformation("Created order with Id = {Id}", id);
 
         return id;
     }
