@@ -12,7 +12,7 @@ public class OrderDetailsConfiguration : IEntityTypeConfiguration<OrderDetailsEn
         builder.Property(el => el.Discount).HasDefaultValue(0);
         builder.Property(el => el.ProductId).IsRequired();
         builder.HasOne(el => el.Product).WithMany(el => el.OrderDetails)
-            .HasForeignKey(el => el.ProductId).IsRequired();
+            .HasForeignKey(el => el.ProductId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         builder.Property(el => el.OrderId).IsRequired();
         builder.HasOne(el => el.Order).WithMany(el => el.OrderDetails)
             .HasForeignKey(el => el.OrderId).IsRequired();

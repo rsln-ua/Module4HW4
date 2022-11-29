@@ -40,8 +40,7 @@ public class OrderService : IOrderService
 
             foreach (var el in items)
             {
-                // FIXME: save to db only first record.
-                _ = await _orderDetailsService.CreateOrderDetails(id, el.ProductId, el.Discount);
+                await _orderDetailsService.CreateOrderDetails(id, el.ProductId, el.Quantity, el.Discount);
             }
 
             await transaction.CommitAsync();

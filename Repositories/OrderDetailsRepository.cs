@@ -14,7 +14,7 @@ public class OrderDetailsRepository : BaseRepository, IOrderDetailsRepository
     {
     }
 
-    public async Task<int> AddOrderDetailsAsync(decimal price, int orderId, int productId, decimal? discount = null)
+    public async Task<int> AddOrderDetailsAsync(decimal price, int orderId, int productId, int? quantity = null, decimal? discount = null)
     {
         var entity = new OrderDetailsEntity()
             { Price = price, OrderId = orderId, ProductId = productId };
@@ -22,6 +22,11 @@ public class OrderDetailsRepository : BaseRepository, IOrderDetailsRepository
         if (discount != null)
         {
             entity.Discount = discount.GetValueOrDefault();
+        }
+
+        if (quantity != null)
+        {
+            entity.Quantity = quantity.GetValueOrDefault();
         }
 
         DbContext.OrderDetails.Add(entity);

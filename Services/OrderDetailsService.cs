@@ -17,10 +17,10 @@ public class OrderDetailsService : IOrderDetailsService
         _loggerService = loggerService;
     }
 
-    public async Task<int> CreateOrderDetails(int orderId, int productId, decimal? discount = null)
+    public async Task<int> CreateOrderDetails(int orderId, int productId, int? quantity = null, decimal? discount = null)
     {
         var product = await _productService.GetProductById(productId);
-        var id = await _orderDetailsRepository.AddOrderDetailsAsync(product.UnitPrice, orderId, productId, discount);
+        var id = await _orderDetailsRepository.AddOrderDetailsAsync(product.UnitPrice, orderId, productId, quantity, discount);
         _loggerService.LogInformation("Created order details with Id = {Id}", id);
 
         return id;

@@ -4,5 +4,5 @@ namespace Module4HW4.Services.Abstractions;
 
 public interface IOrderDetailsService
 {
-    Task<int> CreateOrderDetails(int orderId, int productId, decimal? discount = null);
+    Task<int> CreateOrderDetails(int orderId, int productId, int? quantity = null, decimal? discount = null);
 }
