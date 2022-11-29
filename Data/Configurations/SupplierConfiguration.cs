@@ -11,7 +11,7 @@ public class SupplierConfiguration : IEntityTypeConfiguration<SupplierEntity>
         builder.Property(el => el.CompanyName).IsRequired();
         builder.Property(el => el.ContactFName).IsRequired();
         builder.Property(el => el.ContactLName).IsRequired();
-        builder.HasMany(el => el.Products).WithOne(el => el.SupplierEntity)
+        builder.HasMany(el => el.Products).WithOne(el => el.Supplier)
             .HasForeignKey(el => el.SupplierId).IsRequired();
         builder.Property(el => el.CustomerId).IsRequired();
     }

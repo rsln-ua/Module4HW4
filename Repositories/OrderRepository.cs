@@ -63,4 +63,17 @@ public class OrderRepository : BaseRepository, IOrderRepository
 
         return true;
     }
+
+    public async Task<Order> GetFullOrderByIdAsync(int id)
+    {
+        var entity = await DbContext.Orders
+            .Include(el => el.OrderDetails)
+            .ThenInclude(el => el.Product)
+            .Include(el => el.Shipper)
+            .Include(el => el.Payment)
+            .Include(el => el.Customer)
+            .FirstOrDefaultAsync(el => el.Id == id);
+
+        return Mapper.Map<Order>(entity);
+    }
 }

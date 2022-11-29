@@ -10,7 +10,7 @@ public class PaymentConfiguration : IEntityTypeConfiguration<PaymentEntity>
     {
         builder.Property(el => el.Type).HasDefaultValue("SomeDefaultValue");
         builder.Property(el => el.Allowed).IsRequired();
-        builder.HasMany(el => el.Orders).WithOne(el => el.PaymentEntity)
+        builder.HasMany(el => el.Orders).WithOne(el => el.Payment)
             .HasForeignKey(el => el.PaymentId).IsRequired();
     }
 }

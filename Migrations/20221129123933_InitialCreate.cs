@@ -48,7 +48,7 @@ namespace Module4HW4.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false, defaultValue: "SomeDefaultValue"),
                     Allowed = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

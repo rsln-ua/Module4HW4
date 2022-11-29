@@ -54,4 +54,18 @@ public class OrderService : IOrderService
             throw;
         }
     }
+
+    public async Task<Order> GetOrderById(int id)
+    {
+        var item = await _orderRepository.GetOrderByIdAsync(id);
+
+        return item;
+    }
+
+    public async Task<Order> GetFullOrderById(int id)
+    {
+        var item = await _orderRepository.GetFullOrderByIdAsync(id);
+
+        return item;
+    }
 }

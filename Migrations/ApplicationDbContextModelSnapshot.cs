@@ -275,67 +275,67 @@ namespace Module4HW4.Migrations
 
             modelBuilder.Entity("Module4HW4.Data.Entities.OrderDetailsEntity", b =>
                 {
-                    b.HasOne("Module4HW4.Data.Entities.OrderEntity", "OrderEntity")
+                    b.HasOne("Module4HW4.Data.Entities.OrderEntity", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.ProductEntity", "ProductEntity")
+                    b.HasOne("Module4HW4.Data.Entities.ProductEntity", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderEntity");
+                    b.Navigation("Order");
 
-                    b.Navigation("ProductEntity");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Module4HW4.Data.Entities.OrderEntity", b =>
                 {
-                    b.HasOne("Module4HW4.Data.Entities.CustomerEntity", "CustomerEntity")
+                    b.HasOne("Module4HW4.Data.Entities.CustomerEntity", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.PaymentEntity", "PaymentEntity")
+                    b.HasOne("Module4HW4.Data.Entities.PaymentEntity", "Payment")
                         .WithMany("Orders")
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.ShipperEntity", "ShipperEntity")
+                    b.HasOne("Module4HW4.Data.Entities.ShipperEntity", "Shipper")
                         .WithMany("Orders")
                         .HasForeignKey("ShipperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CustomerEntity");
+                    b.Navigation("Customer");
 
-                    b.Navigation("PaymentEntity");
+                    b.Navigation("Payment");
 
-                    b.Navigation("ShipperEntity");
+                    b.Navigation("Shipper");
                 });
 
             modelBuilder.Entity("Module4HW4.Data.Entities.ProductEntity", b =>
                 {
-                    b.HasOne("Module4HW4.Data.Entities.CategoryEntity", "CategoryEntity")
+                    b.HasOne("Module4HW4.Data.Entities.CategoryEntity", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Module4HW4.Data.Entities.SupplierEntity", "SupplierEntity")
+                    b.HasOne("Module4HW4.Data.Entities.SupplierEntity", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CategoryEntity");
+                    b.Navigation("Category");
 
-                    b.Navigation("SupplierEntity");
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Module4HW4.Data.Entities.CategoryEntity", b =>

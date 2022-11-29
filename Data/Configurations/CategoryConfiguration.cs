@@ -11,7 +11,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<CategoryEntity>
         builder.Property(el => el.Name).IsRequired();
         builder.Property(el => el.Description).IsRequired();
         builder.Property(el => el.Active).HasDefaultValue(true);
-        builder.HasMany(el => el.Products).WithOne(el => el.CategoryEntity)
+        builder.HasMany(el => el.Products).WithOne(el => el.Category)
             .HasForeignKey(el => el.CategoryId).IsRequired();
     }
 }

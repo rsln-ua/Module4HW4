@@ -9,7 +9,7 @@ public class ShippersConfiguration : IEntityTypeConfiguration<ShipperEntity>
     public void Configure(EntityTypeBuilder<ShipperEntity> builder)
     {
         builder.Property(el => el.CompanyName).IsRequired();
-        builder.HasMany(el => el.Orders).WithOne(el => el.ShipperEntity)
+        builder.HasMany(el => el.Orders).WithOne(el => el.Shipper)
             .HasForeignKey(el => el.ShipperId).IsRequired();
     }
 }

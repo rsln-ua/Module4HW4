@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Module4HW4.Models;
 using Module4HW4.Repositories;
 using Module4HW4.Services.Abstractions;
 
@@ -21,5 +22,29 @@ public class CustomerService : ICustomerService
         _loggerService.LogInformation("Created customer with Id = {Id}", id);
 
         return id;
+    }
+
+    public async Task<Customer> GetCustomer(int id)
+    {
+        var item = await _customerRepository.GetCustomerByIdAsync(id);
+
+        if (item == null)
+        {
+            _loggerService.LogWarning("Not founded customer with Id = {Id}", id);
+        }
+
+        return item!;
+    }
+
+    public async Task<Customer> GetCustomerWithOrders(int id)
+    {
+        var item = await _customerRepository.GetWithOrdersByIdAsync(id);
+
+        if (item == null)
+        {
+            _loggerService.LogWarning("Not founded customer with Id = {Id}", id);
+        }
+
+        return item!;
     }
 }

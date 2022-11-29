@@ -18,7 +18,7 @@ public class CustomerRepository : BaseRepository, ICustomerRepository
     public async Task<int> AddCustomerAsync(string firstName, string lastName, string? email, string? phone)
     {
         var entity = new CustomerEntity()
-        { FirstName = firstName, LastName = lastName, Phone = phone, Email = email };
+            { FirstName = firstName, LastName = lastName, Phone = phone, Email = email };
         DbContext.Customers.Add(entity);
         await DbContext.SaveChangesAsync();
 
@@ -60,5 +60,12 @@ public class CustomerRepository : BaseRepository, ICustomerRepository
         await DbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<Customer> GetWithOrdersByIdAsync(int id)
+    {
+        var entity = await DbContext.Customers.Include(el => el.Orders).FirstOrDefaultAsync(el => el.Id == id);
+
+        return Mapper.Map<Customer>(entity);
     }
 }

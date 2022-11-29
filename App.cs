@@ -48,13 +48,36 @@ public class App
         var customerId = await _customerService.CreateCustomer("John", "Biden");
         var orderId = await _orderService.MakeAnOrder(customerId, paymentId, shipperId, new List<OrderDetailsBar>()
         {
-            new OrderDetailsBar() { ProductId = product1Id },
             new OrderDetailsBar() { ProductId = product2Id, Quantity = 3 },
-            new OrderDetailsBar() { ProductId = product1Id, Quantity = 2 },
         });
 
         await _categoryService.UpdateCategory(new Category()
             { Id = category2Id, Name = "fuel", Description = "100600" });
         await _categoryService.DeleteCategory(category1Id);
+        {
+            var customer = await _customerService.GetCustomer(customerId);
+            Console.WriteLine("====================================");
+
+            foreach (var el in customer.Orders)
+            {
+                Console.WriteLine(el.Id);
+                Console.WriteLine(el.Customer.FirstName);
+            }
+
+            Console.WriteLine("====================================");
+        }
+
+        {
+            var order = await _orderService.GetFullOrderById(orderId.GetValueOrDefault());
+            Console.WriteLine("++++++++++++++++++++++++++++++++++++++");
+
+            foreach (var el in order.OrderDetails)
+            {
+                Console.WriteLine(el.Id);
+                Console.WriteLine(el.Product.Name);
+            }
+
+            Console.WriteLine("++++++++++++++++++++++++++++++++++++++");
+        }
     }
 }

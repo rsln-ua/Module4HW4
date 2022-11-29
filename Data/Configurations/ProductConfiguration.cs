@@ -13,10 +13,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
         builder.Property(el => el.UnitPrice).IsRequired();
         builder.Property(el => el.Discount).HasDefaultValue(0);
         builder.Property(el => el.CategoryId).IsRequired();
-        builder.HasOne(el => el.CategoryEntity).WithMany(el => el.Products)
+        builder.HasOne(el => el.Category).WithMany(el => el.Products)
             .HasForeignKey(el => el.CategoryId).IsRequired();
         builder.Property(el => el.SupplierId).IsRequired();
-        builder.HasOne(el => el.SupplierEntity).WithMany(el => el.Products)
+        builder.HasOne(el => el.Supplier).WithMany(el => el.Products)
             .HasForeignKey(el => el.SupplierId).IsRequired();
     }
 }

@@ -8,4 +8,5 @@ public interface ICustomerRepository
     Task<Customer> GetCustomerByIdAsync(int id);
     Task<bool> DeleteCustomerByIdAsync(int id);
     Task<bool> UpdateCustomerAsync(Customer item);
+    Task<Customer> GetWithOrdersByIdAsync(int id);
 }

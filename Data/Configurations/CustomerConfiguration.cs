@@ -10,7 +10,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<CustomerEntity>
     {
         builder.Property(el => el.FirstName).IsRequired();
         builder.Property(el => el.LastName).IsRequired();
-        builder.HasMany(el => el.Orders).WithOne(el => el.CustomerEntity)
+        builder.HasMany(el => el.Orders).WithOne(el => el.Customer)
             .HasForeignKey(el => el.CustomerId).IsRequired();
     }
 }
