@@ -1,0 +1,8 @@
+{
+  "Logger": {
+    "Path": "log.txt"
+  },
+  "ConnectionStrings": {
+   "DefaultConnection": "server=localhost;port=5433;database=SomeShop;uid=postgres;password=postgres;" 
+  }
+}
